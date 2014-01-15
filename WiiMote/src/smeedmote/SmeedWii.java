@@ -55,18 +55,16 @@ public class SmeedWii implements WiimoteListener {
 		short released = e.getButtonsJustReleased();
 		short held = e.getButtonsHeld();
 		qcs.setAllOff();
-		if(e.isButtonBHeld()){
-			qcs.setThrust(true);
-		}else{
-			qcs.setThrust(false);
-		}
 		
 		switch (pressed) {
 		case 0:
-			qcs.setAllOff();
+			//qcs.setAllOff();
 			break;
 		case 4:
-			qcs.setThrust(true);
+			qcs.setAltitudeUp(true);
+			break;
+		case 8:
+			qcs.setAltitudeDown(true);
 			break;
 		case 2048: 
 			qcs.setForward(true);

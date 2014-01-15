@@ -8,6 +8,7 @@ public class AviationControl implements Observer{
 	private Thread controlThread;
 	private String latestControlString;
 	private QuadControlState qcs;
+	private int altitude;
 	
 	public AviationControl(QuadControlState qcs){
 		latestControlString = "";
@@ -25,8 +26,11 @@ public class AviationControl implements Observer{
 	}
 	
 	public void control(){
-		if(qcs.getThrust()){
-			System.out.println("Thrust...");
+		if(qcs.getAltitudeUp()){
+			System.out.println("Altitiude..." + altitude);
+		}
+		if(qcs.getAltitudeDown()){
+			System.out.println("Altitiude..." + altitude);
 		}
 		if(qcs.getForward()){
 			System.out.println("Forward...");
@@ -44,6 +48,15 @@ public class AviationControl implements Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
+		if(arg1 instanceof String){
+			String updateString = (String) arg1;
+			if(updateString.equals("altitudeUp")){
+				altitude++;
+			}else if(updateString.equals("altitudeDown")){
+				altitude--;
+			}
+		}
 		control();
+		
 	}
 }

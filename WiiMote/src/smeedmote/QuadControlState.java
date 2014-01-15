@@ -10,18 +10,19 @@ public class QuadControlState extends Observable {
 	
 	public QuadControlState(){
 		controlsPressed = new HashMap<>();
-		controlsPressed.put("thrust", false);
+		controlsPressed.put("altitudeUp", false);
 		controlsPressed.put("forward", false);
 		controlsPressed.put("bankLeft", false);
 		controlsPressed.put("bankRight", false);
 		controlsPressed.put("backward", false);
+		controlsPressed.put("altitudeDown", false);
 		
 	}
 	
-	public void setThrust(boolean pressed){
-		controlsPressed.put("thrust", pressed);
+	public void setAltitudeUp(boolean pressed){
+		controlsPressed.put("altitudeUp", pressed);
 		setChanged();
-		notifyObservers();
+		notifyObservers("altitudeUp");
 	}
 	
 	public void setForward(boolean pressed){
@@ -48,12 +49,18 @@ public class QuadControlState extends Observable {
 		notifyObservers();
 	}
 	
+	public void setAltitudeDown(boolean pressed){
+		controlsPressed.put("altitudeDown", pressed);
+		setChanged();
+		notifyObservers("altitudeDown");
+	}
+	
 	public boolean getControlValue(String control){
 		return controlsPressed.get(control);
 	}
 	
-	public boolean getThrust(){
-		return controlsPressed.get("thrust");
+	public boolean getAltitudeUp(){
+		return controlsPressed.get("altitudeUp");
 	}
 	
 	public boolean getForward(){
@@ -72,12 +79,17 @@ public class QuadControlState extends Observable {
 		return controlsPressed.get("backward");
 	}
 	
+	public boolean getAltitudeDown(){
+		return controlsPressed.get("altitudeDown");
+	}
+	
 	public void setAllOff(){
-		controlsPressed.put("thrust", false);
+		controlsPressed.put("altitudeUp", false);
 		controlsPressed.put("forward", false);
 		controlsPressed.put("bankLeft", false);
 		controlsPressed.put("bankRight", false);
 		controlsPressed.put("backward", false);
+		controlsPressed.put("altitudeDown", false);
 		setChanged();
 		notifyObservers();
 	}
