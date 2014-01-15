@@ -2,8 +2,9 @@ package com.smeedaviation.quadcopter.model;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Observable;
 
-public class SynchronizedModel {
+public class SynchronizedModel extends Observable{
 
 	private int[] sensorData = {0,0,0,0,0,0};
 	private int[] motorData = {0,0,0,0};
@@ -42,10 +43,16 @@ public class SynchronizedModel {
 	public synchronized void setSensorData(int[] newSensorData) {
 		if (newSensorData.length == 6) {
 			this.sensorData = newSensorData.clone();
-			System.out.printf("ax:%d ay:%d az:%d gx:%d gy:%d gz:%d %n", 
-			this.sensorData[0] , this.sensorData[1], this.sensorData[2] , 
-			this.sensorData[3], this.sensorData[4], this.sensorData[5]);
+			
+			setChanged();
+			notifyObservers();
+			
+//			System.out.printf("ax:%d ay:%d az:%d gx:%d gy:%d gz:%d %n", 
+//			this.sensorData[0] , this.sensorData[1], this.sensorData[2] , 
+//			this.sensorData[3], this.sensorData[4], this.sensorData[5]);
+			
 		}
+		
 	}
 	
 	public synchronized void setSensorData(String newSensorData) {		
@@ -72,7 +79,11 @@ public class SynchronizedModel {
 	public synchronized void setMotorData(int[] newMotorData) {
 		if (newMotorData.length == 4) {
 			this.motorData = newMotorData.clone();
-			this.outData = String.format("%d,%d,%d,%d %n", this.motorData[0], this.motorData[1], this.motorData[2], this.motorData[3]).getBytes();
+			
+			setChanged();
+			notifyObservers();
+			
+			this.outData = String.format("%d,%d,%d,%d; %n", this.motorData[0], this.motorData[1], this.motorData[2], this.motorData[3]).getBytes();
 			this.newData = true;
 		}
 	}
