@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<section name="org.eclipse.ui.internal.dialogs.WorkbenchEditorsDialog">
+		<item value="0" key="sort"/>
+		<item value="false" key="allPersp"/>
+		<list key="bounds">
+			<item value="136"/>
+			<item value="172"/>
+			<item value="798"/>
+			<item value="552"/>
+		</list>
+		<list key="columns">
+			<item value="252"/>
+			<item value="504"/>
+		</list>
+	</section>
 	<section name="org.eclipse.ui.internal.QuickAccess">
 		<item value="1385" key="dialogWidth"/>
 		<item value="790" key="dialogHeight"/>
@@ -13,9 +27,9 @@
 		</list>
 	</section>
 	<section name="ImportExportAction">
-		<item value="org.eclipse.ui.wizards.import.ExternalProject" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
+		<item value="org.eclipse.m2e.core.wizards.Maven2ImportWizard" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
 		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
-			<item value="org.eclipse.ui.Basic"/>
+			<item value="org.eclipse.m2e"/>
 		</list>
 	</section>
 </section>
