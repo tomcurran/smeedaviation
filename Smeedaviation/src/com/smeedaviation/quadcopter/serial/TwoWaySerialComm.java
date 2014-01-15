@@ -2,6 +2,7 @@ package com.smeedaviation.quadcopter.serial;
 
 import gnu.io.CommPort;
 import gnu.io.CommPortIdentifier;
+import gnu.io.NoSuchPortException;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
@@ -9,10 +10,17 @@ import gnu.io.SerialPortEventListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Enumeration;
 
 import com.smeedaviation.quadcopter.model.SynchronizedModel;
 
 public class TwoWaySerialComm {
+
+	private static final String PORT_NAMES[] = {
+		"/dev/tty.usbserial-A9007LL6", // mac
+		"COM7" // windows
+	};
+
 	SynchronizedModel model;
     InputStream in;
 
@@ -20,9 +28,25 @@ public class TwoWaySerialComm {
 		this.model = model;
 	}
 
-	public void connect(String portName) throws Exception {
-		CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
-		
+	@SuppressWarnings("unchecked")
+	private CommPortIdentifier getCommPortIdentifier() {
+		Enumeration<CommPortIdentifier> portEnum = CommPortIdentifier.getPortIdentifiers();
+		while (portEnum.hasMoreElements()) {
+			CommPortIdentifier currPortId = portEnum.nextElement();
+			for (String portName : PORT_NAMES) {
+				if (currPortId.getName().equals(portName)) {
+					return currPortId;
+				}
+			}
+		}
+		return null;
+	}
+
+	public void connect() throws Exception {
+		CommPortIdentifier portIdentifier = getCommPortIdentifier();
+		if (portIdentifier == null) {
+			throw new NoSuchPortException();
+		}
 		if (portIdentifier.isCurrentlyOwned()) {
 			throw new Exception("Error: Port is currently in use");
 		} else {

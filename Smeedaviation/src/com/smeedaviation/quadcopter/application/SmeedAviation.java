@@ -21,9 +21,9 @@ public class SmeedAviation {
 		
 		MotorGraph mg = new MotorGraph("test");
 		mg.main(model);
-		
+
 		try {
-			comm.connect("COM7");
+			comm.connect();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
