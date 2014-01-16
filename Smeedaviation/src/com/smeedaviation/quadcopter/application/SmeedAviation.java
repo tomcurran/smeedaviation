@@ -1,7 +1,10 @@
 package com.smeedaviation.quadcopter.application;
 
 
-import com.smeedaviation.quadcopter.model.SynchronizedModel;
+import com.smeedaviation.quadcopter.model.AbstractModel;
+import com.smeedaviation.quadcopter.model.AccelerationModel;
+import com.smeedaviation.quadcopter.model.GyrationModel;
+import com.smeedaviation.quadcopter.model.MotorModel;
 import com.smeedaviation.quadcopter.serial.TwoWaySerialComm;
 import com.smeedaviation.quadcopter.view.AccelerationGraph;
 import com.smeedaviation.quadcopter.view.GyrationGraph;
@@ -11,26 +14,29 @@ public class SmeedAviation {
 
 	public static void main(String[] args) {
 
-		SynchronizedModel model = new SynchronizedModel();
-		TwoWaySerialComm comm = new TwoWaySerialComm(model);
+		AccelerationModel accelModel = new AccelerationModel();
+		GyrationModel gyroModel = new GyrationModel();
+		MotorModel motorModel = new MotorModel();
+		TwoWaySerialComm comm = new TwoWaySerialComm();
 		
-		AccelerationGraph ag = new AccelerationGraph("test");
-		ag.main(model);
-		GyrationGraph gg = new GyrationGraph("test");
-		gg.main(model);
+		AccelerationGraph accelerationGraph = new AccelerationGraph("Acceleration Graph");
+		accelerationGraph.main(accelModel);
 		
-		MotorGraph mg = new MotorGraph("test");
-		mg.main(model);
+		GyrationGraph gyrationGraph = new GyrationGraph("Gyration Graph");
+		gyrationGraph.main(gyroModel);
+		
+		MotorGraph motorGraph = new MotorGraph("Motor Graph");
+		motorGraph.main(motorModel);
 
 		try {
-			comm.connect();
+			comm.connect(accelModel, gyroModel, motorModel);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		
-		new Thread(new WorkBitch(model)).start();
+		new Thread(new WorkBitch(motorModel)).start();
 		
 		try {
 			Thread.sleep(3000);
@@ -43,45 +49,29 @@ public class SmeedAviation {
 	
 	public static class WorkBitch implements Runnable {
 
-		SynchronizedModel model;
+		AbstractModel motorModel;
 		
-		public WorkBitch(SynchronizedModel model) {
-			this.model = model;
+		public WorkBitch(MotorModel model) {
+			this.motorModel = model;
 		}
 		
 		@Override
-		public void run() {
-			int[] motorData = {200, 200, 200, 200};
-			model.setMotorData(motorData);
+		public void run() {			
+			int count = 0;
 			
-//			int count = 0;
-//			while (true) {
-//				try {
-//					Thread.sleep(100);
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				int mod = count++%3;
-//				switch (mod)
-//				{
-//					case (0): {
-//						int[] motorData = {255, 0, 0, 0};
-//						model.setMotorData(motorData);
-//						break;
-//					}
-//					case (1): {
-//						int[] motorData = {0, 255, 0, 0};
-//						model.setMotorData(motorData);
-//						break;
-//					}
-//					case (2): {
-//						int[] motorData = {0, 0, 255, 0};
-//						model.setMotorData(motorData);
-//						break;
-//					}
-//				}
-//			}
+			while (true) {
+				count = count%255;
+				int[] motorData = {count, count, count, count};
+				motorModel.setData(motorData);
+				
+				count++;
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			
 		}
 		

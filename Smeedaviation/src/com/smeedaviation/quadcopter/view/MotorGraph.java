@@ -22,7 +22,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
-import com.smeedaviation.quadcopter.model.SynchronizedModel;
+import com.smeedaviation.quadcopter.model.MotorModel;
 
 
 public class MotorGraph extends ApplicationFrame implements Observer {
@@ -124,9 +124,11 @@ public class MotorGraph extends ApplicationFrame implements Observer {
 	   
 	        CategoryAxis domainAxis = plot.getDomainAxis();   
 	        domainAxis.setCategoryLabelPositions(   
-	            CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 6.0)   
-	        );   
+	            CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 6.0));
+	        plot.getRangeAxis().setRange(0, 255);
 	        // OPTIONAL CUSTOMISATION COMPLETED.   
+	        
+	        
 	           
 	        return chart;   
 	           
@@ -137,7 +139,7 @@ public class MotorGraph extends ApplicationFrame implements Observer {
 	     *
 	     * @param args  ignored.
 	     */
-	    public void main(SynchronizedModel model) {
+	    public void main(MotorModel model) {
 	 
 	        final MotorGraph demo = new MotorGraph("Motor");
 	        demo.pack();
@@ -152,8 +154,8 @@ public class MotorGraph extends ApplicationFrame implements Observer {
 	 
 		@Override
 		public void update(Observable o, Object arg) {			
-			SynchronizedModel stateChange = (SynchronizedModel) o;
-			int[] motorData = stateChange.getMotorData();
+			MotorModel stateChange = (MotorModel) o;
+			int[] motorData = stateChange.getData();
 			
 			for (int i = 0; i < motorData.length; i++) {
 				this.dataset.setValue(motorData[i], this.dataset.getRowKey(0), this.dataset.getColumnKey(i));

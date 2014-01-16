@@ -19,8 +19,7 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
-import com.smeedaviation.quadcopter.model.SynchronizedModel;
-
+import com.smeedaviation.quadcopter.model.GyrationModel;
 
 public class GyrationGraph extends ApplicationFrame implements Observer {
 	 
@@ -56,7 +55,7 @@ public class GyrationGraph extends ApplicationFrame implements Observer {
 	     *
 	     * @param args  ignored.
 	     */
-	    public void main(SynchronizedModel model) {
+	    public void main(GyrationModel model) {
 	 
 	        final GyrationGraph demo = new GyrationGraph("Controller Orientation");
 	        demo.pack();
@@ -90,12 +89,11 @@ public class GyrationGraph extends ApplicationFrame implements Observer {
 	 
 		@Override
 		public void update(Observable o, Object arg) {
-			SynchronizedModel stateChange = (SynchronizedModel) o;
-			int[] sensorData = stateChange.getSensorData();
-//			System.out.printf("x=%d y=%d z=%d\n", stateChange.getOrientationX(), stateChange.getOrientationY(), stateChange.getOrientationZ());
-	        seriesX.addOrUpdate(new Millisecond(), sensorData[3]);
-	        seriesY.addOrUpdate(new Millisecond(), sensorData[4]);
-	        seriesZ.addOrUpdate(new Millisecond(), sensorData[5]);
+			GyrationModel stateChange = (GyrationModel) o;
+			int[] sensorData = stateChange.getData();
+	        seriesX.addOrUpdate(new Millisecond(), sensorData[0]);
+	        seriesY.addOrUpdate(new Millisecond(), sensorData[1]);
+	        seriesZ.addOrUpdate(new Millisecond(), sensorData[2]);
 		}
 
 }

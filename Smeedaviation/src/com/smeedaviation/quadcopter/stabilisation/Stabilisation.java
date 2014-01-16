@@ -1,12 +1,12 @@
 package com.smeedaviation.quadcopter.stabilisation;
 
-import com.smeedaviation.quadcopter.model.SynchronizedModel;
+import com.smeedaviation.quadcopter.model.MotorModel;
 
 public class Stabilisation implements Runnable {
 	
-	private SynchronizedModel model;
+	private MotorModel model;
 
-	public Stabilisation(SynchronizedModel model) {
+	public Stabilisation(MotorModel model) {
 		this.model = model;
 	}
 
