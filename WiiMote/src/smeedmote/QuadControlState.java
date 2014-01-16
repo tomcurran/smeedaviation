@@ -22,7 +22,7 @@ public class QuadControlState extends Observable {
 	public void setAltitudeUp(boolean pressed){
 		controlsPressed.put("altitudeUp", pressed);
 		setChanged();
-		notifyObservers("altitudeUp");
+		notifyObservers();
 	}
 	
 	public void setForward(boolean pressed){
@@ -52,7 +52,7 @@ public class QuadControlState extends Observable {
 	public void setAltitudeDown(boolean pressed){
 		controlsPressed.put("altitudeDown", pressed);
 		setChanged();
-		notifyObservers("altitudeDown");
+		notifyObservers();
 	}
 	
 	public boolean getControlValue(String control){
@@ -90,6 +90,18 @@ public class QuadControlState extends Observable {
 		controlsPressed.put("bankRight", false);
 		controlsPressed.put("backward", false);
 		controlsPressed.put("altitudeDown", false);
+		setChanged();
+		notifyObservers();
+	}
+	
+	public void setAll(boolean altitudeUp, boolean altitudeDown, boolean bankLeft,
+							boolean bankRight, boolean back, boolean forward){
+		controlsPressed.put("altitudeUp", altitudeUp);
+		controlsPressed.put("forward", forward);
+		controlsPressed.put("bankLeft", bankLeft);
+		controlsPressed.put("bankRight", bankRight);
+		controlsPressed.put("backward", back);
+		controlsPressed.put("altitudeDown", altitudeDown);
 		setChanged();
 		notifyObservers();
 	}

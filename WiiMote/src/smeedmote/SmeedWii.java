@@ -47,67 +47,42 @@ public class SmeedWii implements WiimoteListener {
 	 * 15.     (1 + 2) = 12     Thrust A + Thrust B
 	 * 
 	 */
+	private static final short BUTTON_A 	  = 4;		// 000000000100
+	private static final short BUTTON_B		  = 8;		// 000000001000
 	
+	private static final short BUTTON_LEFT    = 256;	// 000100000000
+	private static final short BUTTON_RIGHT   = 512;	// 001000000000
+	private static final short BUTTON_BACK 	  = 1024;	// 010000000000
+	private static final short BUTTON_FORWARD = 2048;	// 100000000000
 
 	@Override
 	public void onButtonsEvent(WiimoteButtonsEvent e) {
 		short pressed = e.getButtonsJustPressed();
 		short released = e.getButtonsJustReleased();
 		short held = e.getButtonsHeld();
-		qcs.setAllOff();
 		
-		switch (pressed) {
-		case 0:
-			//qcs.setAllOff();
-			break;
-		case 4:
-			qcs.setAltitudeUp(true);
-			break;
-		case 8:
-			qcs.setAltitudeDown(true);
-			break;
-		case 2048: 
-			qcs.setForward(true);
-			break;
-		case 256:
-			qcs.setBankLeft(true);
-			break;
-		case 512:
-			qcs.setBankRight(true);
-			break;
-		case 1024:
-			qcs.setBackward(true);
-			break;
-		case 2052:
-			qcs.setForward(true);
-			break;
-		case 260:
-			qcs.setBankLeft(true);
-			break;
-		case 516:
-			qcs.setBankRight(true);
-			break;
-		case 1028:
-			qcs.setBackward(true);
-			break;
-		case 2308:
-			qcs.setForward(true);
-			qcs.setBankLeft(true);
-			break;
-		case 2564:
-			qcs.setForward(true);
-			qcs.setBankRight(true);
-			break;
-		case 1284:
-			qcs.setBackward(true);
-			qcs.setBankLeft(true);
-			break;
-		case 1540:
-			qcs.setBackward(true);
-			qcs.setBankRight(true);
-		default:
-			break;
-		}
+		
+//	    qcs.setAllOff();
+//		qcs.setAltitudeUp((BUTTON_A & pressed) == BUTTON_A);
+//		qcs.setAltitudeDown((BUTTON_B & pressed) == BUTTON_B);
+//		
+//		qcs.setBankLeft((BUTTON_LEFT & pressed) == BUTTON_LEFT);
+//		qcs.setBankRight((BUTTON_RIGHT & pressed) == BUTTON_RIGHT);
+//		qcs.setBackward((BUTTON_BACK & pressed) == BUTTON_BACK);
+//		qcs.setForward((BUTTON_FORWARD & pressed) == BUTTON_FORWARD);
+		
+		boolean buttonA       = ((BUTTON_A & pressed) == BUTTON_A);
+		boolean buttonB       = ((BUTTON_B & pressed) == BUTTON_B);
+		boolean buttonLeft    = ((BUTTON_LEFT & pressed) == BUTTON_LEFT);
+		boolean buttonRight   = ((BUTTON_RIGHT & pressed)	== BUTTON_RIGHT);
+		boolean buttonBack    = ((BUTTON_BACK & pressed) == BUTTON_BACK);
+		boolean buttonForward = ((BUTTON_FORWARD & pressed) == BUTTON_FORWARD);
+		
+		qcs.setAll(buttonA, buttonB, buttonLeft, buttonRight, buttonBack, buttonForward);
+		
+		
+	
+		
 		
 	}
 
