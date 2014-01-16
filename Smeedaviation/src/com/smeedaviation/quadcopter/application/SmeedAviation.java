@@ -9,6 +9,7 @@ import com.smeedaviation.quadcopter.model.GyrationModel;
 import com.smeedaviation.quadcopter.model.MotorModel;
 import com.smeedaviation.quadcopter.serial.TwoWaySerialComm;
 import com.smeedaviation.quadcopter.view.AccelerationGraph;
+import com.smeedaviation.quadcopter.view.ComplementaryFilterGraph;
 import com.smeedaviation.quadcopter.view.GyrationGraph;
 import com.smeedaviation.quadcopter.view.MotorGraph;
 
@@ -38,6 +39,13 @@ public class SmeedAviation {
 		motorModel.addObserver(motorGraph);
 		RefineryUtilities.centerFrameOnScreen(motorGraph);
 		motorGraph.setVisible(true);
+
+		ComplementaryFilterGraph cfg = new ComplementaryFilterGraph("test", accelModel, gyroModel);
+		cfg.pack();
+		accelModel.addObserver(cfg);
+		gyroModel.addObserver(cfg);
+		RefineryUtilities.centerFrameOnScreen(cfg);
+		cfg.setVisible(true);
 
 		try {
 			comm.connect(accelModel, gyroModel, motorModel);
