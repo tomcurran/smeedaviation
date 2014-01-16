@@ -1,23 +1,22 @@
 package com.smeedaviation.quadcopter.model;
 
 public class ControlModel extends AbstractModel{
+	
+	private int[] controlModel = new int[6];
 
 	@Override
 	protected boolean inputValid(int[] data) {
-		// TODO Auto-generated method stub
-		return false;
+		return data.length == 6;
 	}
 
 	@Override
 	protected void updateData(int[] data) {
-		// TODO Auto-generated method stub
-		
+		controlModel = data.clone();
 	}
 
 	@Override
 	protected int[] returnData() {
-		// TODO Auto-generated method stub
-		return null;
+		return controlModel.clone();
 	}
 
 }
