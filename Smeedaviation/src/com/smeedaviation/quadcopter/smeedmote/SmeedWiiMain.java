@@ -7,6 +7,17 @@ import wiiusej.Wiimote;
 
 public class SmeedWiiMain {
 	
+	public SmeedWiiMain(ControlModel controlModel) {
+		
+		QuadControlState qcs = new QuadControlState();
+		SmeedWii smeedWii = new SmeedWii(qcs);
+		AviationControl aviationControl = new AviationControl(qcs, controlModel);
+		qcs.addObserver(aviationControl);
+		Wiimote[] wiimotes = WiiUseApiManager.getWiimotes(1, true);
+		
+		wiimotes[0].addWiiMoteEventListeners(smeedWii);
+	}
+	
 
 	/**
 	 * @param args
@@ -23,5 +34,7 @@ public class SmeedWiiMain {
 		
 //		aviationControl.controlLoop();
 	}
+	
+    
 
 }

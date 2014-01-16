@@ -5,9 +5,11 @@ import org.jfree.ui.RefineryUtilities;
 
 import com.smeedaviation.quadcopter.model.AbstractModel;
 import com.smeedaviation.quadcopter.model.AccelerationModel;
+import com.smeedaviation.quadcopter.model.ControlModel;
 import com.smeedaviation.quadcopter.model.GyrationModel;
 import com.smeedaviation.quadcopter.model.MotorModel;
 import com.smeedaviation.quadcopter.serial.TwoWaySerialComm;
+import com.smeedaviation.quadcopter.smeedmote.SmeedWiiMain;
 import com.smeedaviation.quadcopter.view.AccelerationGraph;
 import com.smeedaviation.quadcopter.view.ComplementaryFilterGraph;
 import com.smeedaviation.quadcopter.view.GyrationGraph;
@@ -20,6 +22,8 @@ public class SmeedAviation {
 		AccelerationModel accelModel = new AccelerationModel();
 		GyrationModel gyroModel = new GyrationModel();
 		MotorModel motorModel = new MotorModel();
+		ControlModel controlModel = new ControlModel();
+		
 		TwoWaySerialComm comm = new TwoWaySerialComm();
 		
 		AccelerationGraph accelerationGraph = new AccelerationGraph("Acceleration Graph");
@@ -35,6 +39,9 @@ public class SmeedAviation {
 		gyrationGraph.setVisible(true);
 		
 		MotorGraph motorGraph = new MotorGraph("Motor Graph");
+		motorGraph.main(motorModel);
+			
+		new SmeedWiiMain(controlModel);
 		motorGraph.pack();
 		motorModel.addObserver(motorGraph);
 		RefineryUtilities.centerFrameOnScreen(motorGraph);
@@ -54,7 +61,6 @@ public class SmeedAviation {
 			e.printStackTrace();
 		}
 
-		
 		new Thread(new WorkBitch(motorModel)).start();
 		
 		try {

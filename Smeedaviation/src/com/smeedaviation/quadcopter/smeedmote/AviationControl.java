@@ -8,7 +8,6 @@ import com.smeedaviation.quadcopter.model.ControlModel;
 public class AviationControl implements Observer{
 	
 	private QuadControlState qcs;
-	private int[] controlModelInput;
 	private ControlModel cm;
 	
 	public AviationControl(QuadControlState qcs, ControlModel cm){
@@ -27,30 +26,40 @@ public class AviationControl implements Observer{
 	}
 	
 	public void control(){
-		controlModelInput = cm.getData();
+		int[] newControlData = new int[6];
 		
 		if(qcs.getAltitudeUp()){
 			System.out.println("Altitiude...Up");
+			newControlData[0] = 1;
 		}
 		if(qcs.getAltitudeDown()){
 			System.out.println("Altitiude...Down");
+			newControlData[1] = 1;
 		}
 		if(qcs.getForward()){
 			System.out.println("Forward...");
-		}
-		if(qcs.getBankLeft()){
-			System.out.println("Left...");
-		}
-		if(qcs.getBankRight()){
-			System.out.println("Right...");
+			newControlData[2] = 1;
 		}
 		if(qcs.getBackward()){
 			System.out.println("Back...");
+			newControlData[4] = 1;
 		}
+		if(qcs.getBankLeft()){
+			System.out.println("Left...");
+			newControlData[5] = 1;
+		}
+		if(qcs.getBankRight()){
+			System.out.println("Right...");
+			newControlData[6] = 1;
+		}
+		
+		cm.setData(newControlData);
+		
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		control();
+		
 	}
 }
