@@ -62,7 +62,7 @@ public class ComplementaryFilterGraph extends ApplicationFrame implements Observ
 
 	private JFreeChart createChart(final XYDataset dataset) {
 		final JFreeChart result = ChartFactory.createTimeSeriesChart(
-				"Controller Orientation",
+				"Orientation",
 				"Time",
 				"Value",
 				dataset,
@@ -72,9 +72,10 @@ public class ComplementaryFilterGraph extends ApplicationFrame implements Observ
 		);
 		final XYPlot plot = result.getXYPlot();
 		ValueAxis axis = plot.getDomainAxis();
-		axis.setAutoRange(true);
+//		axis.setAutoRange(true);
 		axis.setFixedAutoRange(60000.0); // 60 seconds
 		axis = plot.getRangeAxis();
+		axis.setRange(-180, 180);
 		return result;
 	}
 

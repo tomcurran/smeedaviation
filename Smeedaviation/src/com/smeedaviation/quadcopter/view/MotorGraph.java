@@ -60,8 +60,8 @@ public class MotorGraph extends ApplicationFrame implements Observer {
 		// column keys...
 		String category1 = "Front Left";
 		String category2 = "Front Right";
-		String category3 = "Back Left";
-		String category4 = "Back Right";
+		String category3 = "Back Right";
+		String category4 = "Back Left ";
 
 		// create the dataset...
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -78,7 +78,7 @@ public class MotorGraph extends ApplicationFrame implements Observer {
 
 		// create the chart...
 		JFreeChart chart = ChartFactory.createBarChart(
-				"Motor power", // chart title
+				"Motor Power", // chart title
 				"Category", // domain axis label
 				"Value", // range axis label
 				dataset, // data

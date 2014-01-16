@@ -1,7 +1,7 @@
 package com.smeedaviation.quadcopter.application;
 
 
-import com.smeedaviation.quadcopter.model.AbstractModel;
+import com.smeedaviation.quadcopter.control.MotorDriver;
 import com.smeedaviation.quadcopter.model.AccelerationModel;
 import com.smeedaviation.quadcopter.model.ControlModel;
 import com.smeedaviation.quadcopter.model.GyrationModel;
@@ -38,44 +38,46 @@ public class SmeedAviation {
 		
 		MotorGraph motorGraph = new MotorGraph("Motor Graph");
 		motorModel.addObserver(motorGraph);
-			
 
-		ComplementaryFilterGraph cfg = new ComplementaryFilterGraph("test", accelModel, gyroModel);
+		ComplementaryFilterGraph cfg = new ComplementaryFilterGraph("Orientation Graph", accelModel, gyroModel);
 		accelModel.addObserver(cfg);
 		gyroModel.addObserver(cfg);
 		
 		new SmeedWiiMain(controlModel);
+
+		controlModel.addObserver(new MotorDriver(motorModel));
+		
 	}
 
 	
-	public static class WorkBitch implements Runnable {
-
-		AbstractModel motorModel;
-		
-		public WorkBitch(MotorModel model) {
-			this.motorModel = model;
-		}
-
-		@Override
-		public void run() {			
-			int count = 0;
-			
-			while (true) {
-//				count = count%255;
-				int[] motorData = {count, count, count, count};
-				motorModel.setData(motorData);
-				
-				count++;
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-		}
-		
-	}
+//	public static class WorkBitch implements Runnable {
+//
+//		AbstractModel motorModel;
+//		
+//		public WorkBitch(MotorModel model) {
+//			this.motorModel = model;
+//		}
+//
+//		@Override
+//		public void run() {			
+//			int count = 0;
+//			
+//			while (true) {
+////				count = count%255;
+//				int[] motorData = {count, count, count, count};
+//				motorModel.setData(motorData);
+//				
+//				count++;
+//				try {
+//					Thread.sleep(100);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//			
+//		}
+//		
+//	}
 
 }

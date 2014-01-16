@@ -21,57 +21,58 @@ public class MotorDriver implements Observer {
 		
 		int[] currentMoterValues = this.moterModel.getData();
 		int[] currentControlValues = controlModel.getData();
-		
+				
 		if (currentControlValues[0] == 1) {
-			for (int moterValue : currentMoterValues) {			
-				moterValue = moterValue + 10;
+			for (int i = 0; i < currentMoterValues.length; i++) {			
+				currentMoterValues[i] += 10;
 			}
+
 		} 
 		if (currentControlValues[1] == 1) {
-			for (int moterValue : currentMoterValues) {
-				moterValue = moterValue - 10;
+			for (int i = 0; i < currentMoterValues.length; i++) {			
+				currentMoterValues[i] -= 10;
 			}
 		}
 		if (currentControlValues[2] == 1) {
 			// left down
-			currentMoterValues[1] -= 5;
-			currentMoterValues[4] -= 5;
+			currentMoterValues[0] -= 5;
+			currentMoterValues[3] -= 5;
 			// right up
+			currentMoterValues[1] += 5;
 			currentMoterValues[2] += 5;
-			currentMoterValues[3] += 5;
 		}
 		if (currentControlValues[3] == 1) {
 			// left up
-			currentMoterValues[1] += 5;
-			currentMoterValues[4] += 5;
+			currentMoterValues[0] += 5;
+			currentMoterValues[3] += 5;
 			// right down
+			currentMoterValues[1] -= 5;
 			currentMoterValues[2] -= 5;
-			currentMoterValues[3] -= 5;
 		}
 		if (currentControlValues[4] == 1) {
 			// front down
+			currentMoterValues[0] -= 5;
 			currentMoterValues[1] -= 5;
-			currentMoterValues[2] -= 5;
 			// back up
+			currentMoterValues[2] += 5;
 			currentMoterValues[3] += 5;
-			currentMoterValues[4] += 5;
 		}
 		if (currentControlValues[5] == 1) {
 			// front up
+			currentMoterValues[0] += 5;
 			currentMoterValues[1] += 5;
-			currentMoterValues[2] += 5;
 			// back down
+			currentMoterValues[2] -= 5;
 			currentMoterValues[3] -= 5;
-			currentMoterValues[4] -= 5;
 		}
 		
-		for (int moterValue : currentMoterValues) {
-			if (moterValue < 0) {
-				moterValue = 0;
+		for (int i = 0; i < currentMoterValues.length; i++) {
+			if (currentMoterValues[i] < 0) {
+				currentMoterValues[i] = 0;
 			}
 			
-			if (moterValue > 255) {
-				moterValue = 255;
+			if (currentMoterValues[i] > 255) {
+				currentMoterValues[i] = 255;
 			}
 		}
 		

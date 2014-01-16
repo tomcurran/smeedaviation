@@ -42,15 +42,15 @@ public class AviationControl implements Observer{
 		}
 		if(qcs.getBackward()){
 			System.out.println("Back...");
-			newControlData[4] = 1;
+			newControlData[3] = 1;
 		}
 		if(qcs.getBankLeft()){
 			System.out.println("Left...");
-			newControlData[5] = 1;
+			newControlData[4] = 1;
 		}
 		if(qcs.getBankRight()){
 			System.out.println("Right...");
-			newControlData[6] = 1;
+			newControlData[5] = 1;
 		}
 		
 		cm.setData(newControlData);
