@@ -17,6 +17,7 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RefineryUtilities;
 
 import com.smeedaviation.quadcopter.model.AccelerationModel;
 import com.smeedaviation.quadcopter.model.GyrationModel;
@@ -53,6 +54,10 @@ public class ComplementaryFilterGraph extends ApplicationFrame implements Observ
 
 		this.acc = accelModel;
 		this.gyro = gyroModel;
+		
+		this.pack();
+		RefineryUtilities.centerFrameOnScreen(this);
+		this.setVisible(true);
 	}
 
 	private JFreeChart createChart(final XYDataset dataset) {

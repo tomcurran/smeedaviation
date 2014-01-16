@@ -20,6 +20,7 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RefineryUtilities;
 
 import com.smeedaviation.quadcopter.model.MotorModel;
 
@@ -35,6 +36,10 @@ public class MotorGraph extends ApplicationFrame implements Observer {
 		JPanel chartPanel = createDemoPanel(this.dataset);
 		chartPanel.setPreferredSize(new Dimension(500, 270));
 		setContentPane(chartPanel);
+		
+		this.pack();
+		RefineryUtilities.centerFrameOnScreen(this);
+		this.setVisible(true);
 	}
 
 	public static JPanel createDemoPanel(DefaultCategoryDataset dataset) {

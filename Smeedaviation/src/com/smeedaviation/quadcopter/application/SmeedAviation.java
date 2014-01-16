@@ -1,8 +1,6 @@
 package com.smeedaviation.quadcopter.application;
 
 
-import org.jfree.ui.RefineryUtilities;
-
 import com.smeedaviation.quadcopter.model.AbstractModel;
 import com.smeedaviation.quadcopter.model.AccelerationModel;
 import com.smeedaviation.quadcopter.model.ControlModel;
@@ -26,49 +24,27 @@ public class SmeedAviation {
 		
 		TwoWaySerialComm comm = new TwoWaySerialComm();
 		
-		AccelerationGraph accelerationGraph = new AccelerationGraph("Acceleration Graph");
-		accelerationGraph.pack();
-		accelModel.addObserver(accelerationGraph);
-		RefineryUtilities.centerFrameOnScreen(accelerationGraph);
-		accelerationGraph.setVisible(true);
-		
-		GyrationGraph gyrationGraph = new GyrationGraph("Gyration Graph");
-		gyrationGraph.pack();
-		gyroModel.addObserver(gyrationGraph);
-		RefineryUtilities.centerFrameOnScreen(gyrationGraph);
-		gyrationGraph.setVisible(true);
-		
-		MotorGraph motorGraph = new MotorGraph("Motor Graph");
-		motorGraph.main(motorModel);
-			
-		new SmeedWiiMain(controlModel);
-		motorGraph.pack();
-		motorModel.addObserver(motorGraph);
-		RefineryUtilities.centerFrameOnScreen(motorGraph);
-		motorGraph.setVisible(true);
-
-		ComplementaryFilterGraph cfg = new ComplementaryFilterGraph("test", accelModel, gyroModel);
-		cfg.pack();
-		accelModel.addObserver(cfg);
-		gyroModel.addObserver(cfg);
-		RefineryUtilities.centerFrameOnScreen(cfg);
-		cfg.setVisible(true);
-
 		try {
 			comm.connect(accelModel, gyroModel, motorModel);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		new Thread(new WorkBitch(motorModel)).start();
 		
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		AccelerationGraph accelerationGraph = new AccelerationGraph("Acceleration Graph");
+		accelModel.addObserver(accelerationGraph);
+		
+		GyrationGraph gyrationGraph = new GyrationGraph("Gyration Graph");
+		gyroModel.addObserver(gyrationGraph);
+		
+		MotorGraph motorGraph = new MotorGraph("Motor Graph");
+		motorModel.addObserver(motorGraph);
+			
+
+		ComplementaryFilterGraph cfg = new ComplementaryFilterGraph("test", accelModel, gyroModel);
+		accelModel.addObserver(cfg);
+		gyroModel.addObserver(cfg);
+		
+		new SmeedWiiMain(controlModel);
 	}
 
 	
