@@ -1,6 +1,8 @@
 package com.smeedaviation.quadcopter.application;
 
 
+import org.jfree.ui.RefineryUtilities;
+
 import com.smeedaviation.quadcopter.model.AbstractModel;
 import com.smeedaviation.quadcopter.model.AccelerationModel;
 import com.smeedaviation.quadcopter.model.GyrationModel;
@@ -20,13 +22,22 @@ public class SmeedAviation {
 		TwoWaySerialComm comm = new TwoWaySerialComm();
 		
 		AccelerationGraph accelerationGraph = new AccelerationGraph("Acceleration Graph");
-		accelerationGraph.main(accelModel);
+		accelerationGraph.pack();
+		accelModel.addObserver(accelerationGraph);
+		RefineryUtilities.centerFrameOnScreen(accelerationGraph);
+		accelerationGraph.setVisible(true);
 		
 		GyrationGraph gyrationGraph = new GyrationGraph("Gyration Graph");
-		gyrationGraph.main(gyroModel);
+		gyrationGraph.pack();
+		gyroModel.addObserver(gyrationGraph);
+		RefineryUtilities.centerFrameOnScreen(gyrationGraph);
+		gyrationGraph.setVisible(true);
 		
 		MotorGraph motorGraph = new MotorGraph("Motor Graph");
-		motorGraph.main(motorModel);
+		motorGraph.pack();
+		motorModel.addObserver(motorGraph);
+		RefineryUtilities.centerFrameOnScreen(motorGraph);
+		motorGraph.setVisible(true);
 
 		try {
 			comm.connect(accelModel, gyroModel, motorModel);
@@ -54,13 +65,13 @@ public class SmeedAviation {
 		public WorkBitch(MotorModel model) {
 			this.motorModel = model;
 		}
-		
+
 		@Override
 		public void run() {			
 			int count = 0;
 			
 			while (true) {
-				count = count%255;
+//				count = count%255;
 				int[] motorData = {count, count, count, count};
 				motorModel.setData(motorData);
 				
