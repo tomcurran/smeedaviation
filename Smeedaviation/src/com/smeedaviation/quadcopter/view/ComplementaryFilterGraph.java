@@ -20,6 +20,7 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
+import com.smeedaviation.quadcopter.model.AbstractModel;
 import com.smeedaviation.quadcopter.model.AccelerationModel;
 import com.smeedaviation.quadcopter.model.GyrationModel;
 
@@ -27,8 +28,8 @@ public class ComplementaryFilterGraph extends ApplicationFrame implements Observ
 
 	private static final long serialVersionUID = -1727948182617521282L;
 
-	private AccelerationModel acc;
-	private GyrationModel gyro;
+	private AbstractModel acc;
+	private AbstractModel gyro;
 
 	private long lastSample;
 

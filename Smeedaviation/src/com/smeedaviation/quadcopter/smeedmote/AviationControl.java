@@ -3,26 +3,17 @@ package com.smeedaviation.quadcopter.smeedmote;
 import java.util.Observable;
 import java.util.Observer;
 
+import com.smeedaviation.quadcopter.model.AbstractModel;
 import com.smeedaviation.quadcopter.model.ControlModel;
 
 public class AviationControl implements Observer{
 	
 	private QuadControlState qcs;
-	private ControlModel cm;
+	private AbstractModel cm;
 	
 	public AviationControl(QuadControlState qcs, ControlModel cm){
 		this.qcs = qcs;
 		this.cm = cm;
-		
-//		controlThread = new Thread(new Runnable() {
-//			@Override
-//			public void run() {
-//				controlLoop();	
-//			}
-//		});
-//		controlThread.setPriority(Thread.MAX_PRIORITY);
-//		controlThread.start();
-		
 	}
 	
 	public void control(){
