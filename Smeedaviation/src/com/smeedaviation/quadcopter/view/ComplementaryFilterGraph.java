@@ -2,6 +2,7 @@ package com.smeedaviation.quadcopter.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -58,6 +59,7 @@ public class ComplementaryFilterGraph extends ApplicationFrame implements Observ
 		this.pack();
 		RefineryUtilities.centerFrameOnScreen(this);
 		this.setVisible(true);
+		this.setLocation(new Point(606,40));
 	}
 
 	private JFreeChart createChart(final XYDataset dataset) {

@@ -3,6 +3,7 @@ package com.smeedaviation.quadcopter.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
+import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -40,6 +41,7 @@ public class MotorGraph extends ApplicationFrame implements Observer {
 		this.pack();
 		RefineryUtilities.centerFrameOnScreen(this);
 		this.setVisible(true);
+		this.setLocation(new Point(606,348));
 	}
 
 	public static JPanel createDemoPanel(DefaultCategoryDataset dataset) {

@@ -2,6 +2,7 @@ package com.smeedaviation.quadcopter.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -52,6 +53,9 @@ public class AccelerationGraph extends ApplicationFrame implements Observer {
 		this.pack();
 		RefineryUtilities.centerFrameOnScreen(this);
 		this.setVisible(true);
+		this.setLocation(new Point(90,40));
+		System.out.println(this.getSize().height);
+		System.out.println(this.getSize().width);
 	}
 
 	private JFreeChart createChart(final XYDataset dataset) {
